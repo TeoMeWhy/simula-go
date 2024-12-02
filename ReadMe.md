@@ -13,7 +13,9 @@ Para isso, utilizamos canais e Goroutines. Confira a implementação.
 Para executar o programa:
 
 1. Tenha o Go instalado;
-2. ```bash
+2. Execute os comandos:
+
+```bash
 cd src/figurinhas
 go run main.go
 ```
