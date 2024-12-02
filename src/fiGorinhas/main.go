@@ -1,7 +1,7 @@
 package main
 
 import (
-	"figurinhas/album"
+	"fiGorinhas/album"
 	"flag"
 	"log"
 	"sync"
@@ -34,10 +34,10 @@ func main() {
 	N := flag.Int("N", 550, "Tamanho do álbum, i.e. quantas figurinhas são necessárias para completar o álbum.")
 	ite := flag.Int("ite", 1000, "Quantidade de albuns gerados na simulação.")
 	threads := flag.Int("threads", 1, "Quantidade de processos na simulação.")
+	flag.Parse()
+
 	ch := make(chan int, *ite)
 	partition := *ite / *threads
-
-	flag.Parse()
 
 	wg := sync.WaitGroup{}
 
