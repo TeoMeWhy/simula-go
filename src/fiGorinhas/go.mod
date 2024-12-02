@@ -1,4 +1,4 @@
-module figurinhas
+module fiGorinhas
 
 go 1.23.3
 

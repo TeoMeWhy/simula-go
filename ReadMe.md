@@ -16,7 +16,7 @@ Para executar o programa:
 2. Execute os comandos:
 
 ```bash
-cd src/figurinhas
+cd src/fiGorinhas
 go run main.go
 ```
 
@@ -33,3 +33,7 @@ Como padrão ele será executado com esses parâmetros:
 ```
 
 Ou seja, se preferir pode alter os valores para álbuns personalizados, bem como a quantidade de iteração e threads para procesamento.
+
+## Contribuia
+
+Fique a vontade para adicionar novas implementações tanto em Go, como em outras linguagens para melhorar a performance. Submeta seu código para ser aprovado. Dê um nome para seu projeto em `src`.
