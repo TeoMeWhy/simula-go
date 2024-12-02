@@ -2,6 +2,7 @@ package main
 
 import (
 	"figurinhas/album"
+	"flag"
 	"log"
 	"sync"
 	"time"
@@ -10,7 +11,7 @@ import (
 func worker(n, N, ite int, ch chan int, wg *sync.WaitGroup, i int) {
 	defer wg.Done()
 	ch <- album.SimulaAlbuns(n, N, ite)
-	log.Printf("\nEncerrando a thread %d...", i)
+	log.Printf("Encerrando a thread %d...", i)
 }
 
 func listener(ch chan int, ite int) {
@@ -19,7 +20,7 @@ func listener(ch chan int, ite int) {
 		select {
 		case v, ok := <-ch:
 			if !ok {
-				log.Println(soma / ite)
+				log.Println("\n\nMédia para completar album:", soma/ite)
 				return
 			}
 			soma += v
@@ -29,20 +30,22 @@ func listener(ch chan int, ite int) {
 
 func main() {
 
-	n := 5
-	N := 550
-	ite := 1000000
-	ch := make(chan int, ite)
-	threads := 5000
-	partition := ite / threads
+	n := flag.Int("n", 5, "Tamanho de cada pacote de figurinhas, i.e. quantas figurinahs em cada pacote.")
+	N := flag.Int("N", 550, "Tamanho do álbum, i.e. quantas figurinhas são necessárias para completar o álbum.")
+	ite := flag.Int("ite", 1000, "Quantidade de albuns gerados na simulação.")
+	threads := flag.Int("threads", 1, "Quantidade de processos na simulação.")
+	ch := make(chan int, *ite)
+	partition := *ite / *threads
+
+	flag.Parse()
 
 	wg := sync.WaitGroup{}
 
-	go listener(ch, ite)
+	go listener(ch, *ite)
 
-	for ; threads > 0; threads-- {
+	for ; *threads > 0; *threads-- {
 		wg.Add(1)
-		go worker(n, N, partition, ch, &wg, threads)
+		go worker(*n, *N, partition, ch, &wg, *threads)
 	}
 
 	wg.Wait()
